@@ -1,0 +1,178 @@
+/******************************************************************************
+
+LINKED LIST implementation in C++
+
+*******************************************************************************/
+
+#include <iostream>
+using namespace std;
+template<class T>
+class Node
+{
+	private:
+		T data;
+		Node* next;
+	public:
+		Node(T d)
+		{
+			data = d;
+			next = NULL;
+		}
+		 void setData(T d) { data = d; }
+		 void setNext(Node* n) { next = n; }
+
+		 T getData() { return data;}
+		 Node* getNext() { return next;}
+
+
+};
+
+template <class T1>
+class LList
+{
+    private:
+        Node<T1>* head;
+    public:
+        LList()
+        {
+            head=NULL;
+        }
+        /*
+        void createList()
+        {
+            Node<int> *n1 = new Node<int>(15);
+
+            Node<int> *n2  = new Node<int>(78);
+
+            Node<int> *n3 = new Node<int>(8);
+
+            n1->setNext(n2);
+            n2->setNext(n3);
+
+
+            head = n1;
+        }
+        */
+
+        void insertStart(T1 V)
+        {
+            Node<T1> *newNode = new Node<T1>(V);
+
+            if(head==NULL)
+            {
+                head = newNode;
+            }
+            else
+            {
+                newNode->setNext(head);
+                head = newNode;
+            }
+        }
+        T1 deleteStart()
+        {
+            if(head == NULL)
+                return NULL;
+            else
+            {
+                Node<T1> *temp = head;
+                T1 data = temp->getData();
+
+                head = head -> getNext(); // move head to the next node
+
+                return data;
+            }
+        }
+        /*
+        void insertStart(Node *newNode)
+        {
+            if(head==NULL)
+            {
+                head = newNode;
+            }
+            else
+            {
+                newNode->next = head;
+                head = newNode;
+            }
+        }
+
+        void insertMiddle(int loc, int V)
+        {
+            struct Node *newNode = new Node;
+            newNode->data = V;
+            newNode->next = NULL;
+
+            Node*temp = head;
+            int i=1;
+            while(i<loc-1)
+            {
+                temp = temp->next;
+                i++;
+            }
+            // temp will be pointing to predecessor
+            Node* succ = temp->next;
+
+            temp->next = newNode;// temp->next will be successor
+            newNode->next = succ;
+        }
+
+
+*/
+        void display()
+        {
+            Node<T1>* temp = head;
+            while(temp!=NULL)
+            {
+                cout<<temp->getData()<<endl;
+
+                temp = temp->getNext();
+            }
+        }
+};
+
+class Stack
+{
+private:
+    LList<string> data;
+    int size;
+public:
+     void push(string s1)
+    {
+        data.insertStart(s1);
+    }
+
+     string pop()
+    {
+        return data.deleteStart();
+    }
+};
+int main()
+{
+    LList<string> l1;
+   //l1.createList();
+    l1.insertStart("abc");
+
+    l1.insertStart("def");
+
+    l1.insertStart("sdf");
+    l1.display();
+
+    Stack s1;
+    s1.push("first");
+    s1.push("second");
+    s1.push("third");
+
+    cout<<s1.pop();
+
+    cout<<s1.pop();
+    /*
+    Node* n1 = new Node;
+    n1->data = 50;
+    n1->next = NULL;
+
+    l1.insertStart(n1);
+    l1.insertMiddle(4, 150);
+    l1.display();
+    */
+    return 0;
+}
